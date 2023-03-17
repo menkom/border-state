@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  application.name: ${APPLICATION_NAME:border-state-collector}
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: basic
