@@ -1,0 +1,116 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-checkpoint-table
+      author: Mike_Menko
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: checkpoint
+      changes:
+      - createTable:
+          tableName: checkpoint
+          columns:
+          - column:
+              name: name
+              type: varchar(40)
+              constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: checkpoint_pk
+          - column:
+              name: id
+              type: varchar(40)
+              constraints:
+                nullable: false
+                unique: true
+                uniqueConstraintName: uk_checkpoint_id
+          - column:
+              name: active
+              type: boolean
+              constraints:
+                nullable: false
+              defaultValueBoolean: true
+      - createIndex:
+          indexName: idx_checkpoint_id
+          tableName: checkpoint
+          columns:
+            - column:
+                name: id
+  - changeSet:
+      id: 002-create-enums-vehicle_status-and-queue_type
+      author: Mike_Menko
+      preConditions:
+        - onFail: MARK_RAN
+#        - not:
+#            tableExists:
+#              tableName: checkpoint
+      changes:
+      - sql:
+          sql: "CREATE TYPE vehicle_status AS ENUM ('ARRIVED', 'CALLED', 'ANNULLED', 'UTILIZED');"
+      - sql:
+          sql: "CREATE TYPE queue_type AS ENUM ('TRUCK_LIVE_QUEUE', 'TRUCK_PRIORITY', 'BUS_LIVE_QUEUE', 'BUS_PRIORITY', 'CAR_LIVE_QUEUE', 'CAR_PRIORITY', 'MOTORCYCLE_LIVE_QUEUE', 'MOTORCYCLE_PRIORITY');"
+  - changeSet:
+      id: 003-create-vehicle-table
+      author: Mike_Menko
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: vehicle
+      changes:
+        - createTable:
+            tableName: vehicle
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: vehicle_pk
+              - column:
+                  name: reg_num
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: vehicle_status
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: registration_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checkpoint_id
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_checkpoint_id
+                    references: checkpoint(id)
+              - column:
+                  name: queue_type
+                  type: queue_type
+                  constraints:
+                    nullable: false
+        - createIndex:
+            indexName: idx_vehicle_reg_num_status
+            tableName: vehicle
+            columns:
+              - column:
+                  name: reg_num
+              - column:
+                  name: status
