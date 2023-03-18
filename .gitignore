@@ -42,3 +42,6 @@ version.txt
 *.zip
 /doc/
 /logs/
+
+# Local environment
+.env
