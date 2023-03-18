@@ -44,4 +44,4 @@ version.txt
 /logs/
 
 # Local environment
-.env
+*.env
