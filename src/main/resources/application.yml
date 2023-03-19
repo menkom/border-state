@@ -6,9 +6,10 @@ spring:
     url: ${DATASOURCE_URL:}
     username: ${POSTGRES_USER:}
     password: ${POSTGRES_PASSWORD:}
-    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
+    hibernate:
+      ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
     default-schema: public
