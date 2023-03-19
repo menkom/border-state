@@ -8,7 +8,6 @@ public enum Status {
     ARRIVED(2),
     CALLED(3),
     ANNULLED(9),
-    UTILIZED(0),
     ;
 
     private final int code;

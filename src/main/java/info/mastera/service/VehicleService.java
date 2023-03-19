@@ -4,6 +4,7 @@ import info.mastera.declarant.client.model.StateResponse;
 import info.mastera.mapper.VehicleMapper;
 import info.mastera.model.Checkpoint;
 import info.mastera.model.QueueType;
+import info.mastera.model.StateChangeType;
 import info.mastera.model.Vehicle;
 import info.mastera.repository.CheckpointRepository;
 import info.mastera.repository.VehicleRepository;
@@ -25,11 +26,24 @@ public class VehicleService {
     VehicleMapper vehicleMapper;
     CheckpointRepository checkpointRepository;
     VehicleRepository vehicleRepository;
+    ChangeInspectorService changeInspectorService;
+    NotificationService notificationService;
 
-    public void update(StateResponse response) {
+    public void processData(StateResponse response) {
         var checkpoint = checkpointRepository.findById(response.getInfo().getName())
                 .orElseThrow();
-        vehicleRepository.saveAll(collectVehiclesData(response, checkpoint));
+        var actualVehiclesData = collectVehiclesData(response, checkpoint);
+        var changedVehicleStates = actualVehiclesData.stream()
+                .map(changeInspectorService::inspect)
+                .filter(state -> state.changeType() != StateChangeType.NONE)
+                .toList();
+        changedVehicleStates
+                .forEach(notificationService::notify);
+        vehicleRepository.saveAll(
+                changedVehicleStates.stream()
+                        .map(changeInspectorService::prepareVehicleToSave)
+                        .toList()
+        );
     }
 
     private Stream<Vehicle> prepareVehicles(List<Vehicle> vehicles, QueueType queueType, Checkpoint checkpoint) {

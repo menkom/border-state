@@ -30,7 +30,7 @@ public class SchedulerService {
     public void retrieveStatesData() {
         for (Checkpoint checkpoint : checkpointService.getAll()) {
             var state = borderApi.getStateNew(checkpoint.getId());
-            vehicleService.update(state);
+            vehicleService.processData(state);
         }
         log.info("States updated");
     }
