@@ -40,14 +40,9 @@ databaseChangeLog:
   - changeSet:
       id: 002-create-enums-vehicle_status-and-queue_type
       author: Mike_Menko
-      preConditions:
-        - onFail: MARK_RAN
-#        - not:
-#            tableExists:
-#              tableName: checkpoint
       changes:
       - sql:
-          sql: "CREATE TYPE vehicle_status AS ENUM ('ARRIVED', 'CALLED', 'ANNULLED', 'UTILIZED');"
+          sql: "CREATE TYPE vehicle_status AS ENUM ('ARRIVED', 'CALLED', 'ANNULLED');"
       - sql:
           sql: "CREATE TYPE queue_type AS ENUM ('TRUCK_LIVE_QUEUE', 'TRUCK_PRIORITY', 'BUS_LIVE_QUEUE', 'BUS_PRIORITY', 'CAR_LIVE_QUEUE', 'CAR_PRIORITY', 'MOTORCYCLE_LIVE_QUEUE', 'MOTORCYCLE_PRIORITY');"
   - changeSet:
@@ -107,13 +102,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createIndex:
-            indexName: idx_vehicle_reg_num_status
+            indexName: idx_vehicle_reg_num_registration_date
             tableName: vehicle
             columns:
               - column:
                   name: reg_num
               - column:
-                  name: status
+                  name: registration_date
   - changeSet:
       id: 004-import-checkpoints-data
       author: Mike_Menko
