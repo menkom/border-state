@@ -37,7 +37,7 @@ out/
 .vscode/
 
 version.txt
-/gradle.properties
+
 .log
 *.zip
 /doc/

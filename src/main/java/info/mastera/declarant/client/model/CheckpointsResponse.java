@@ -2,6 +2,7 @@ package info.mastera.declarant.client.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class CheckpointsResponse {
 
     @Getter
     @Setter
+    @Accessors(chain = true)
     public static class Checkpoint {
         private String id;
         private String name;
