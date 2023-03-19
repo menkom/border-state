@@ -50,6 +50,9 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+// casting from string to database enum type (not simple varchar DB type)
+    implementation 'com.vladmihalcea:hibernate-types-55:2.21.1'
 }
 
 tasks.named('test') {

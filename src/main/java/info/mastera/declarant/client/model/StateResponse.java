@@ -1,43 +1,64 @@
 package info.mastera.declarant.client.model;
 
-import jakarta.json.bind.annotation.JsonbDateFormat;
-import jakarta.json.bind.annotation.JsonbProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class StateResponse {
-    private List<Transport> truckLiveQueue;
-    private List<Transport> truckPriority;
-    private List<Transport> truckGpk;
-    private List<Transport> busLiveQueue;
-    private List<Transport> busPriority;
-    private List<Transport> carLiveQueue;
-    private List<Transport> carPriority;
-    private List<Transport> motorcycleLiveQueue;
-    private List<Transport> motorcyclePriority;
 
+    Info info;
+
+    List<Transport> truckLiveQueue;
+    List<Transport> truckPriority;
+    List<Transport> truckGpk;
+    List<Transport> busLiveQueue;
+    List<Transport> busPriority;
+    List<Transport> carLiveQueue;
+    List<Transport> carPriority;
+    List<Transport> motorcycleLiveQueue;
+    List<Transport> motorcyclePriority;
+
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Accessors(chain = true)
     @Getter
     @Setter
     @JsonbPropertyOrder(value = {"regNum", "status", "order_id", "type_queue", "registration_date", "changed_date"})
     public static class Transport {
-        @JsonbProperty(value = "regnum")
-        private String regNum;
-        private int status;
-        @JsonbProperty(value = "order_id")
-        private Integer orderId;
-        @JsonbProperty(value = "type_queue")
-        private int typeQueue;
-        @JsonbProperty(value = "registration_date")
-        @JsonbDateFormat(value = "HH:mm:ss' 'dd.MM.yyyy")
-        private LocalDateTime registrationDate;
-        @JsonbProperty(value = "changed_date")
-        @JsonbDateFormat(value = "HH:mm:ss' 'dd.MM.yyyy")
-        private LocalDateTime changedDate;
+        @JsonProperty(value = "regnum")
+        String regNum;
+        int status;
+        @JsonProperty(value = "order_id")
+        Integer orderId;
+        @JsonProperty(value = "type_queue")
+        int typeQueue;
+        @JsonProperty(value = "registration_date")
+        @JsonFormat(pattern =  "HH:mm:ss' 'dd.MM.yyyy")
+        LocalDateTime registrationDate;
+        @JsonProperty(value = "changed_date")
+        @JsonFormat(pattern =  "HH:mm:ss' 'dd.MM.yyyy")
+        LocalDateTime changedDate;
+    }
+
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Accessors(chain = true)
+    @Getter
+    @Setter
+    @JsonbPropertyOrder(value = {"id", "nameEn", "name"})
+    public static class Info {
+
+        String id;
+        String nameEn;
+        String name;
     }
 }

@@ -2,11 +2,14 @@ package info.mastera.service;
 
 import info.mastera.declarant.client.model.CheckpointsResponse;
 import info.mastera.mapper.CheckpointMapper;
+import info.mastera.model.Checkpoint;
 import info.mastera.repository.CheckpointRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -21,5 +24,9 @@ public class CheckpointService {
         var saved = checkpointRepository.findAll();
         actualCheckpoints.removeAll(saved);
         checkpointRepository.saveAll(actualCheckpoints);
+    }
+
+    public List<Checkpoint> getAll(){
+        return checkpointRepository.findAll();
     }
 }

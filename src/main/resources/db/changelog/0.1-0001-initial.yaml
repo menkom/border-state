@@ -100,7 +100,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     foreignKeyName: fk_checkpoint_id
-                    references: checkpoint(id)
+                    references: checkpoint(name)
               - column:
                   name: queue_type
                   type: queue_type

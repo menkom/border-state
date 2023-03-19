@@ -41,6 +41,9 @@ public class BorderApiTest {
         Assertions.assertNotNull(resultToTest);
         Assertions.assertNotNull(resultToTest.getTruckPriority());
         Assertions.assertNotEquals(0, resultToTest.getTruckLiveQueue().size());
+        Assertions.assertNotNull(resultToTest.getTruckLiveQueue().get(0).getRegNum());
+        Assertions.assertNotNull(resultToTest.getTruckLiveQueue().get(0).getRegistrationDate());
+        Assertions.assertNotNull(resultToTest.getTruckLiveQueue().get(0).getChangedDate());
         Assertions.assertNotNull(resultToTest.getTruckGpk());
         Assertions.assertNotNull(resultToTest.getBusLiveQueue());
         Assertions.assertNotNull(resultToTest.getBusPriority());
