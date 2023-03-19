@@ -14,10 +14,13 @@ import java.util.List;
 public class StateResponse {
     private List<Transport> truckLiveQueue;
     private List<Transport> truckPriority;
+    private List<Transport> truckGpk;
     private List<Transport> busLiveQueue;
     private List<Transport> busPriority;
     private List<Transport> carLiveQueue;
+    private List<Transport> carPriority;
     private List<Transport> motorcycleLiveQueue;
+    private List<Transport> motorcyclePriority;
 
     @Getter
     @Setter
@@ -36,7 +39,5 @@ public class StateResponse {
         @JsonbProperty(value = "changed_date")
         @JsonbDateFormat(value = "HH:mm:ss' 'dd.MM.yyyy")
         private LocalDateTime changedDate;
-
     }
-
 }

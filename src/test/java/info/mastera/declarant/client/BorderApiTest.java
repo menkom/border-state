@@ -1,17 +1,17 @@
 package info.mastera.declarant.client;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @EnableFeignClients
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @TestPropertySource(
         properties = {
                 "logging.level.info.mastera.declarant.client.BorderApi=DEBUG",
@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
         }
 )
 @ExtendWith(SpringExtension.class)
-@Disabled
+//@Disabled
 public class BorderApiTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -40,5 +40,12 @@ public class BorderApiTest {
         Assertions.assertNotNull(resultToTest);
         Assertions.assertNotNull(resultToTest.getTruckPriority());
         Assertions.assertNotEquals(0, resultToTest.getTruckLiveQueue().size());
+        Assertions.assertNotNull(resultToTest.getTruckGpk());
+        Assertions.assertNotNull(resultToTest.getBusLiveQueue());
+        Assertions.assertNotNull(resultToTest.getBusPriority());
+        Assertions.assertNotNull(resultToTest.getCarLiveQueue());
+        Assertions.assertNotNull(resultToTest.getCarPriority());
+        Assertions.assertNotNull(resultToTest.getMotorcycleLiveQueue());
+        Assertions.assertNotNull(resultToTest.getMotorcyclePriority());
     }
 }
