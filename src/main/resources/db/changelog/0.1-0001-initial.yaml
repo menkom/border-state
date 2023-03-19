@@ -86,12 +86,12 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: registration_date
-                  type: date
+                  type: datetime
                   constraints:
                     nullable: false
               - column:
                   name: changed_date
-                  type: date
+                  type: datetime
                   constraints:
                     nullable: false
               - column:
