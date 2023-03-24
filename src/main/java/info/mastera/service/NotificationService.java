@@ -1,12 +1,19 @@
 package info.mastera.service;
 
+import info.mastera.bot.client.BorderStateBotClient;
+import info.mastera.mapper.ChangedVehicleStateMapper;
 import info.mastera.model.ChangedVehicleState;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class NotificationService {
+
+    private final BorderStateBotClient borderStateBotClient;
+    private final ChangedVehicleStateMapper changedVehicleStateMapper;
 
     public void notify(ChangedVehicleState changedVehicleState) {
         switch (changedVehicleState.changeType()) {
@@ -29,5 +36,6 @@ public class NotificationService {
                     )
             );
         }
+        borderStateBotClient.sendInfo(changedVehicleStateMapper.convert(changedVehicleState));
     }
 }

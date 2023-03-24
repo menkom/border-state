@@ -1,5 +1,6 @@
 package info.mastera.service;
 
+import feign.RetryableException;
 import info.mastera.declarant.client.BorderApi;
 import info.mastera.model.Checkpoint;
 import lombok.AccessLevel;
@@ -29,8 +30,12 @@ public class SchedulerService {
     @Scheduled(fixedDelayString = "${border-waiting-area.scheduler.data-collection.states-update}")
     public void retrieveStatesData() {
         for (Checkpoint checkpoint : checkpointService.getAll()) {
-            var state = borderApi.getStateNew(checkpoint.getId());
-            vehicleService.processData(state);
+            try {
+                var state = borderApi.getStateNew(checkpoint.getId());
+                vehicleService.processData(state);
+            } catch (RetryableException exc) {
+                log.error("Error on getting states. {}", exc.getMessage());
+            }
         }
         log.info("States updated");
     }
