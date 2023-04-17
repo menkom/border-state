@@ -24,3 +24,5 @@ border-waiting-area:
     data-collection:
       checkpoints-update: ${CHECKPOINTS_UPDATE:86400000}
       states-update: ${STATES_UPDATE:15000}
+  bot:
+    url: ${BORDER_WAITING_AREA_URL:http://host.docker.internal:8088}
