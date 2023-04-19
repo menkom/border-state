@@ -1,5 +1,6 @@
 package info.mastera.service;
 
+import feign.RetryableException;
 import info.mastera.bot.client.BorderStateBotClient;
 import info.mastera.mapper.ChangedVehicleStateMapper;
 import info.mastera.model.ChangedVehicleState;
@@ -36,6 +37,10 @@ public class NotificationService {
                     )
             );
         }
-        borderStateBotClient.sendInfo(changedVehicleStateMapper.convert(changedVehicleState));
+        try {
+            borderStateBotClient.sendInfo(changedVehicleStateMapper.convert(changedVehicleState));
+        } catch (RetryableException e) {
+            log.error("Error sending states");
+        }
     }
 }

@@ -38,15 +38,7 @@ databaseChangeLog:
             - column:
                 name: id
   - changeSet:
-      id: 002-create-enums-vehicle_status-and-queue_type
-      author: Mike_Menko
-      changes:
-      - sql:
-          sql: "CREATE TYPE vehicle_status AS ENUM ('ARRIVED', 'CALLED', 'ANNULLED');"
-      - sql:
-          sql: "CREATE TYPE queue_type AS ENUM ('TRUCK_LIVE_QUEUE', 'TRUCK_PRIORITY', 'BUS_LIVE_QUEUE', 'BUS_PRIORITY', 'CAR_LIVE_QUEUE', 'CAR_PRIORITY', 'MOTORCYCLE_LIVE_QUEUE', 'MOTORCYCLE_PRIORITY');"
-  - changeSet:
-      id: 003-create-vehicle-table
+      id: 002-create-vehicle-table
       author: Mike_Menko
       preConditions:
         - onFail: MARK_RAN
@@ -71,7 +63,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: status
-                  type: vehicle_status
+                  type: ENUM ('ARRIVED', 'CALLED', 'ANNULLED')
                   constraints:
                     nullable: false
               - column:
@@ -98,7 +90,7 @@ databaseChangeLog:
                     references: checkpoint(name)
               - column:
                   name: queue_type
-                  type: queue_type
+                  type: ENUM ('TRUCK_LIVE_QUEUE', 'TRUCK_PRIORITY', 'BUS_LIVE_QUEUE', 'BUS_PRIORITY', 'CAR_LIVE_QUEUE', 'CAR_PRIORITY', 'MOTORCYCLE_LIVE_QUEUE', 'MOTORCYCLE_PRIORITY')
                   constraints:
                     nullable: false
         - createIndex:

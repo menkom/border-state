@@ -12,7 +12,6 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
-    default-schema: public
 feign:
   client:
     config:

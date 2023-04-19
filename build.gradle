@@ -31,9 +31,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation('org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1') {
+    implementation('org.springframework.cloud:spring-cloud-starter-openfeign:4.0.2') {
         exclude group: 'commons-io', module: 'commons-io'
+        exclude group: 'commons-fileupload', module: 'commons-fileupload'
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+        exclude group: 'org.springframework', module: 'spring-web'
     }
     implementation 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
 
@@ -45,14 +47,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.liquibase:liquibase-core'
-    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.1.3'
 
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-
-// casting from string to database enum type (not simple varchar DB type)
-    implementation 'com.vladmihalcea:hibernate-types-55:2.21.1'
 }
 
 tasks.named('test') {
