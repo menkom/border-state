@@ -1,5 +1,5 @@
 version: '3.8'
-
+name: local_network
 services:
 
   border-state-collector-app:
@@ -9,5 +9,3 @@ services:
       dockerfile: ./docker/app/Dockerfile
     env_file:
       - ./.env
-    environment:
-      - DATASOURCE_URL=jdbc:mariadb://host.docker.internal:3306/${POSTGRES_DB}
