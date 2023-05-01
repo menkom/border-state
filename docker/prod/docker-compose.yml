@@ -1,0 +1,18 @@
+version: '3.8'
+name: border-state
+services:
+  border-state-bot-app:
+    container_name: border-state-bot-app
+    image: menkomihail/border-state-bot-app:v1.0.3
+    env_file:
+      - .bot.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  border-state-collector-app:
+    container_name: border-state-collector-app
+    image: menkomihail/border-state-collector-app:v1
+    env_file:
+      - ./.collector.env
+    depends_on:
+      - border-state-bot-app
+    network_mode: host
