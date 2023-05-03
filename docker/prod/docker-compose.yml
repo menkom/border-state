@@ -8,9 +8,13 @@ services:
       - .bot.env
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    logging:
+      options: # container logs rotation
+        max-size: "10m" # size limit to rotate
+        max-file: "3"
   border-state-collector-app:
     container_name: border-state-collector-app
-    image: menkomihail/border-state-collector-app:v1
+    image: menkomihail/border-state-collector-app:v1.0.2
     env_file:
       - ./.collector.env
     depends_on:
