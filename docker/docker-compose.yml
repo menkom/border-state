@@ -1,5 +1,5 @@
 version: '3.8'
-name: local_network
+name: border-state-aggregator
 services:
 
   border-state-collector-app:
