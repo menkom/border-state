@@ -52,6 +52,9 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    runtimeOnly 'org.codehaus.janino:janino' // conditional in logging
+    runtimeOnly 'net.logstash.logback:logstash-logback-encoder:7.3'
 }
 
 tasks.named('test') {

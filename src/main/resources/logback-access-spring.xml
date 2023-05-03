@@ -1,0 +1,19 @@
+<configuration>
+
+    <springProperty name="enableJsonLog" source="kufar-core.enable-json-log" defaultValue="false"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <if condition='Boolean.parseBoolean(property("enableJsonLog"))'>
+            <then>
+                <encoder class="net.logstash.logback.encoder.LogstashAccessEncoder"/>
+            </then>
+            <else>
+                <encoder>
+                    <pattern>common</pattern>
+                </encoder>
+            </else>
+        </if>
+    </appender>
+
+    <appender-ref ref="CONSOLE"/>
+</configuration>

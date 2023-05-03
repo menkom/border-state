@@ -1,0 +1,23 @@
+<configuration>
+
+    <springProperty name="enableJsonLog" source="border-waiting-area.enable-json-log" defaultValue="false"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <if condition='Boolean.parseBoolean(property("enableJsonLog"))'>
+        <then>
+            <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+            </appender>
+        </then>
+        <else>
+            <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        </else>
+    </if>
+
+    <logger name="info.mastera" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
