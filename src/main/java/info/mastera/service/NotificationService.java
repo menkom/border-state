@@ -18,7 +18,7 @@ public class NotificationService {
 
     public void notify(ChangedVehicleState changedVehicleState) {
         switch (changedVehicleState.changeType()) {
-            case ORDER_ID -> log.info(
+            case ORDER_ID -> log.debug(
                     "For registration number %s order changed from %s to %s. %s : %s".formatted(
                             changedVehicleState.actual().getRegNum(),
                             changedVehicleState.saved().getOrderId(),
@@ -27,7 +27,7 @@ public class NotificationService {
                             changedVehicleState.actual().getQueueType()
                     )
             );
-            case STATUS -> log.info(
+            case STATUS -> log.debug(
                     "For registration number %s status changed from %s to %s. %s : %s".formatted(
                             changedVehicleState.actual().getRegNum(),
                             changedVehicleState.saved().getStatus(),
