@@ -1,5 +1,7 @@
 version: '3.8'
 
+name: mariadb-container
+
 services:
   postgres:
     image: jbergstroem/mariadb-alpine:10.6.12
