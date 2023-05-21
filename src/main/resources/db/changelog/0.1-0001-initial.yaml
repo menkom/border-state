@@ -168,3 +168,11 @@ databaseChangeLog:
             - column:
                 name: name
                 value: "Урбаны"
+  - changeSet:
+      id: 005-add-unique-constraint-on-regnum-and-time
+      author: Mike_Menko
+      changes:
+        - addUniqueConstraint:
+            columnNames: reg_num, registration_date
+            constraintName: uk_vehicle_regnum_regdate
+            tableName: vehicle
