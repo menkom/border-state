@@ -9,14 +9,28 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     logging:
+      driver: fluentd
       options: # container logs rotation
         max-size: "10m" # size limit to rotate
         max-file: "3"
+        fluentd-address: "localhost:24224"
+        fluentd-async-connect: "true"
+        tag: border.{{.Name}}
+        labels: info.logger.label
   border-state-collector-app:
     container_name: border-state-collector-app
-    image: menkomihail/border-state-collector-app:v1.0.2
+    image: menkomihail/border-state-collector-app:v1.0.3
     env_file:
       - ./.collector.env
     depends_on:
       - border-state-bot-app
     network_mode: host
+    logging:
+      driver: fluentd
+      options:
+        max-size: "10m" # size limit to rotate
+        max-file: "3"
+        fluentd-address: "localhost:24224"
+        fluentd-async-connect: "true"
+        tag: border.{{.Name}}
+        labels: info.logger.label
