@@ -1,8 +1,8 @@
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 plugins {
-    id 'org.springframework.boot' version '2.7.9'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
 }
 
@@ -31,7 +31,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation('org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1') {
+    implementation('org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0') {
         exclude group: 'commons-io', module: 'commons-io'
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
@@ -45,7 +45,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.liquibase:liquibase-core'
-    runtimeOnly 'org.postgresql:postgresql'
+//    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
 
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
