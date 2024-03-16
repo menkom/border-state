@@ -26,7 +26,7 @@ public class CheckpointService {
         checkpointRepository.saveAll(actualCheckpoints);
     }
 
-    public List<Checkpoint> getAll(){
-        return checkpointRepository.findAll();
+    public List<Checkpoint> getAllActive(){
+        return checkpointRepository.findAllByActive(true);
     }
 }
