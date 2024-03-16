@@ -35,6 +35,8 @@ public class SchedulerService {
                 vehicleService.processData(state);
             } catch (RetryableException exc) {
                 log.error("Error on getting states. {}", exc.getMessage());
+            } catch (Exception exc) {
+                log.error("Error on processing states. {}", exc.getMessage());
             }
         }
         log.info("States updated");

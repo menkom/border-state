@@ -31,7 +31,7 @@ public class VehicleService {
 
     public void processData(StateResponse response) {
         var checkpoint = checkpointRepository.findById(response.getInfo().getName())
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException("No checkpoint found by name %s".formatted(response.getInfo().getName())));
         var actualVehiclesData = collectVehiclesData(response, checkpoint);
         var changedVehicleStates = actualVehiclesData.stream()
                 .map(changeInspectorService::inspect)
