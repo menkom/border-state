@@ -45,3 +45,5 @@ version.txt
 
 # Local environment
 *.env
+
+.profileconfig.json
