@@ -12,6 +12,8 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
+    default-schema: border_state_db
+    enabled: false
 feign:
   client:
     config:

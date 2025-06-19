@@ -2,12 +2,11 @@ package info.mastera.declarant.client;
 
 import info.mastera.declarant.client.model.CheckpointsResponse;
 import info.mastera.declarant.client.model.StateResponse;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.validation.constraints.NotBlank;
 
 @FeignClient(name = "BorderApi", url = "https://belarusborder.by/info")
 public interface BorderApi {
