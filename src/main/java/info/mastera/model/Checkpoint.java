@@ -1,14 +1,13 @@
 package info.mastera.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @EqualsAndHashCode
 @Getter
