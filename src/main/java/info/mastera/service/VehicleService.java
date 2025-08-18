@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -31,7 +32,7 @@ public class VehicleService {
 
     public void processData(StateResponse response) {
         var checkpoint = checkpointRepository.findById(response.getInfo().getName())
-                .orElseThrow();
+                .orElseThrow(() -> new NoSuchElementException("No checkpoint with name %s found".formatted(response.getInfo().getName())));
         var actualVehiclesData = collectVehiclesData(response, checkpoint);
         var changedVehicleStates = actualVehiclesData.stream()
                 .map(changeInspectorService::inspect)
