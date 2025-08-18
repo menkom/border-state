@@ -30,13 +30,16 @@ public class SchedulerService {
     @Scheduled(fixedDelayString = "${border-waiting-area.scheduler.data-collection.states-update}")
     public void retrieveStatesData() {
         for (Checkpoint checkpoint : checkpointService.getAll()) {
-            try {
-                var state = borderApi.getStateNew(checkpoint.getId());
-                vehicleService.processData(state);
-            } catch (RetryableException exc) {
-                log.error("Error on getting states. {}", exc.getMessage());
+            if(checkpoint.isActive()) {
+                try {
+                    var state = borderApi.getStateNew(checkpoint.getId());
+                    vehicleService.processData(state);
+                } catch (RetryableException exc) {
+                    log.error("Error on getting states. {}", exc.getMessage());
+                }
+                log.info("States updated for checkpoint {}", checkpoint.getName());
             }
         }
-        log.info("States updated");
+        log.info("States of all checkpoints updated");
     }
 }
