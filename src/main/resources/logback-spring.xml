@@ -2,22 +2,35 @@
 
     <springProperty name="enableJsonLog" source="border-waiting-area.enable-json-log" defaultValue="false"/>
 
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-
     <if condition='Boolean.parseBoolean(property("enableJsonLog"))'>
         <then>
-            <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>logs/border-state-collector.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>logs/border-state-collector-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
                 <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
             </appender>
         </then>
         <else>
-            <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>logs/border-state-collector.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>logs/border-state-collector-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
         </else>
     </if>
 
-    <logger name="info.mastera" level="DEBUG"/>
+    <logger name="info.mastera" level="INFO"/>
 
     <root level="INFO">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
+
 </configuration>
