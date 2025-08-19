@@ -1,0 +1,1 @@
+scp /Users/mike/Downloads/projects/border-state/build/libs/border-state-collector-?.?.?.jar aspire:~/border-state
