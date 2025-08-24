@@ -27,9 +27,9 @@ else
   echo "No process found on port 8080"
 fi
 
-#java -Dlogback.configurationFile=./logback-spring.xml -jar "$JAR_PATH"
+#java -Dlogging.config=./logback-spring.xml -jar "$JAR_PATH"
 #nohup - not stop service on console close
 #> /dev/null 2>&1  - no logging (but logging managed by application works)
 # echo $! > border-state-collector.pid - save application PID to file
-nohup java -Dlogback.configurationFile=./logback-spring.xml -jar "$JAR_PATH" > /dev/null 2>&1 & echo $! > border-state-collector.pid
+nohup java -Dlogging.config=./logback-spring.xml -jar "$JAR_PATH" > /dev/null 2>&1 & echo $! > border-state-collector.pid
 echo "Application started in background with PID $!"
