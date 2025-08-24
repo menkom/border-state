@@ -11,6 +11,14 @@ spring:
     url: ${DATASOURCE_URL:}
     username: ${POSTGRES_USER:}
     password: ${POSTGRES_PASSWORD:}
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000    # milliseconds
+            readTimeout: 5000       # milliseconds
+            loggerLevel: basic
   jpa:
     show-sql: false
     hibernate:
@@ -20,11 +28,6 @@ spring:
     change-log: classpath:/db/changelog/master.yaml
     default-schema: border_state_db
     enabled: true
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: basic
 
 border-waiting-area:
   scheduler:
